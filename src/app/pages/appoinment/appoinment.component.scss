@@ -96,7 +96,7 @@
 /* Time Slot Section */
 .time_slot_part {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: space-between;
   gap: 20px;
   border-radius: 25px;
@@ -106,9 +106,32 @@
   width: 100%;
   max-width: 1182px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  align-items: flex-start;
+  
   flex-wrap: wrap;
   height: 100%;
+}
+
+.button_part{
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  
+}
+.button_part button{
+  border: none;
+  border-radius: 25px;
+  height: 50px;
+  min-width: 325px;
+  background: linear-gradient(to bottom, #f89021 50%, #f3612e);
+color: white;
+font-weight: 600;
+ 
+}
+
+button:hover{
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s ease-in-out;
+
 }
 
 /* Calendar Section */

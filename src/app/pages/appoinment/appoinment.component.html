@@ -25,6 +25,7 @@
             </div>
 
             <div class="time_slot_part">
+
                 <!-- Calendar Section -->
                 <div class="book_appointment_part">
                     <div class="book_appointment_parts">
@@ -35,7 +36,7 @@
                         <h1>Book Morning Appointment</h1>
                         <div class="slot_selection">
                             @for (item of array; track $index) {
-                            <div class="slot_selection_part col-4">
+                            <div class="slot_selection_part">
                                 {{item.number}}<br />
                                 {{item.time}}
                             </div>
@@ -47,7 +48,9 @@
                     </div>
 
                 </div>
-
+                <div class="button_part">
+                    <button type="button">Proceed to Book</button>
+                </div>
                 <!-- Suggestion Section -->
 
             </div>
