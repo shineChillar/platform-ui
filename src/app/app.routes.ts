@@ -4,6 +4,6 @@ import { AppoinmentComponent } from './pages/appoinment/appoinment.component';
 
 export const routes: Routes = [
     {
-        path: "ere",component:AppoinmentComponent
+        path: "re",component:AppoinmentComponent
     }
 ];
