@@ -4,41 +4,49 @@
     </div>
 
     <div class="card bg-card">
-    <div class=" bg-row">
+        <div class=" bg-row">
+            <!-- <div class=" bg-image_part">
+                <img src="stethoscope.png" />
+            </div> -->
             <div class="card inner">
                 <div class="row">
-                <div class="col-6">
-                    <p>Doctor:</p>
-                    <p>Date:</p>
-                    <p>Time:</p>
-                    <p>Booking fee:</p>
-                    <p>Consultation fee:</p>
-                </div>
-                <div class="col-6">
-                    <p>John</p>
+                    <div class="col-6">
+                        <p>Doctor: John</p>
+                        <p>Date: 11-25-2024</p>
+                        <p>Time: 10:00</p>
+                        <p>Booking fee: {{details.bookingFee}}</p>
+                        <p>Consultation fee:{{details.consultationCharge}}</p>
+                    </div>
+                    <div class="col-6">
+                        <!-- <p>John</p>
                     <p>11-25-2024</p>
                     <p>10:00</p>
                     <p>{{details.bookingFee}}</p>
-                    <p>{{details.consultationCharge}}</p>
+                    <p>{{details.consultationCharge}}</p> -->
+                        <img src="v868-sasi-01.jpg" />
+
+                    </div>
+                    <div class="details">
+                        <div class="bg-blur">
+                            <form action="" [formGroup]="patientDetails">
+                                <h3>Patient Details</h3>
+                                <div class="form-group">
+                                    <label for="patientName">Patient Name:</label>
+                                    <input type="text" class="form-control" id="patientName" formControlName="name"
+                                        placeholder="Enter patient's name">
+                                </div>
+                                <div class="form-group">
+                                    <label for="patientEmail">Contact number:</label>
+                                    <input type="number" class="form-control" id="patientEmail" formControlName="phone"
+                                        placeholder="Enter contact number">
+                                </div>
+                                <button type="button" (click)="submit()">Conform Booking</button>
+                            </form>
+                        </div>
+                    </div>
                 </div>
+
             </div>
-            </div>
-        <div class="details">
-            <div class="bg-blur">
-            <form action="" [formGroup]="patientDetails">
-                <h3>Patient Details</h3>
-                <div class="form-group">
-                    <label for="patientName">Patient Name:</label>
-                    <input type="text" class="form-control" id="patientName" formControlName="name" placeholder="Enter patient's name">
-                </div>
-                <div class="form-group">
-                    <label for="patientEmail">Contact number:</label>
-                    <input type="number" class="form-control" id="patientEmail" formControlName="phone" placeholder="Enter contact number">
-                </div>
-                <button type="button" (click)="submit()">Conform Booking</button>
-            </form>
-        </div>
         </div>
     </div>
-</div>
 </div>
