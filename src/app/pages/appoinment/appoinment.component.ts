@@ -28,6 +28,11 @@ export class AppoinmentComponent {
     { number: 2, time: '8:00 Am' },
     { number: 3, time: '9:00 Am' },
     { number: 4, time: '10:00 Am' },
+    { number: 5, time: '11:00 Am' },
+    { number: 5, time: '11:00 Am' },
+    { number: 5, time: '11:00 Am' },
+    { number: 5, time: '11:00 Am' },
+    { number: 5, time: '11:00 Am' },
     { number: 5, time: '11:00 Am' }
   ];
 
