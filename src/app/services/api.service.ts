@@ -10,7 +10,7 @@ export class ApiService {
   constructor(private http : HttpService) { }
 
 getWorkSlots(data:any){
-  return this.http.post(urls.getWorkSlots,)
+  return this.http.post(urls.getWorkSlots,data)
 }
 
 slotOnHold(data:any){
@@ -19,6 +19,14 @@ slotOnHold(data:any){
 
 getPriceDetails(data:any){
   return this.http.post(urls.getPriceDetails,data)
+}
+
+getProfile(data:any){
+  return this.http.post(urls.profile,data)
+}
+
+bookSlot(data:any){
+  return this.http.post(urls.bookSlot,data)
 }
 
 }

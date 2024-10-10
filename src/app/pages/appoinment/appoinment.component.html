@@ -8,12 +8,11 @@
     <div class="inner_section_part">
       <div class="docter_img">
         <div class="docter_details"></div>
-        <img src="doctor_2785482.png" alt="Doctor Image" class="img_responsive" />
+        <img src="doctor.png" alt="Doctor Image" class="img_responsive" />
         <div class="doctor_details">
-          <h2>Dr. John Doe</h2>
-          <p>Specialization: Cardiologist</p>
-          <p>Experience: 15 Years</p>
-          <p>Location: City Hospital, New York</p>
+          <h2>{{profileDetails.doctor_name}}</h2>
+          <p>Specialization: {{profileDetails.designation}}</p>
+          <p>Qualification: {{profileDetails.qualification}}</p>
         </div>
       </div>
   
@@ -23,7 +22,7 @@
           <div class="book_appointment_parts " [@fadeInOut]="'in'">
             <div class="date_format">
               <label>Pick the date :</label>
-              <input type="date" class="styled_input" />
+              <input type="date" class="styled_input" [formControl]="slotDate"  />
             </div>
             <h1>Book Morning Appointment</h1>
             <div class="slot_selection">
@@ -32,8 +31,8 @@
                    class="slot_selection_part"
                    [ngClass]="{'selected': isSlotSelected(item)}"
                    (click)="selectSlot(item)">
-                {{item.number}}<br />
-                {{item.time}}
+                {{i+1}}<br />
+                {{item?.time_slot}}
               </div>
             </div>
           </div>
@@ -43,7 +42,7 @@
         <div class="button_part">
           <button 
                   type="button"
-                  [ngClass]="{'clicked': selectedSlotIndex.length !== 0}" (click)="buttonClick()">Proceed to Book</button>
+                  [ngClass]="{'clicked': selectedSlotIndex.length !== 0}" (click)="holdSlot()">Proceed to Book</button>
         </div>
       </div>
     </div>

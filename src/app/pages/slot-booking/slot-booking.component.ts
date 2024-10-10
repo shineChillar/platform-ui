@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { CommonService } from '../../services/common.service';
 
 @Component({
   selector: 'app-slot-booking',
@@ -20,8 +21,15 @@ export class SlotBookingComponent {
     }
   ]
 
-  constructor(private route: Router){}
+  constructor(private route: Router, private commonService : CommonService){}
 
+  ngOnInit(){
+const params =this.commonService.getAppointmentDetails();
+console.log("paramsp",params)
+this.commonService.updateAppointmentDetails({test:123})
+const paramss =this.commonService.getAppointmentDetails();
+console.log("params2",paramss)
+  }
   doctorNav(){
     this.route.navigate(['/appoinment']);
   }

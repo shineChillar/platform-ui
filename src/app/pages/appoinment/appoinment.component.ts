@@ -1,12 +1,16 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { trigger, transition, style, animate } from '@angular/animations';
-import { RouterOutlet } from '@angular/router';
+import { Router, RouterOutlet } from '@angular/router';
+import { ApiService } from '../../services/api.service';
+import { ToasterService } from '../../services/toaster.service';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { CommonService } from '../../services/common.service';
 
 @Component({
   selector: 'app-appoinment',
   standalone: true,
-  imports: [RouterOutlet, CommonModule],
+  imports: [RouterOutlet, CommonModule,ReactiveFormsModule],
   templateUrl: './appoinment.component.html',
   styleUrls: ['./appoinment.component.scss'],
   animations: [
@@ -19,20 +23,40 @@ import { RouterOutlet } from '@angular/router';
     //     animate('200ms', style({ opacity: 0 }))
     //   ])
     // ])
-  ]
+  ],
 })
-export class AppoinmentComponent {
-  // Array of slots
-  array = [
-    { number: 1, time: '7:00 Am' },
-    { number: 2, time: '8:00 Am' },
-    { number: 3, time: '9:00 Am' },
-    { number: 4, time: '10:00 Am' },
-    { number: 5, time: '11:00 Am' }
-  ];
+export class AppoinmentComponent implements OnInit {
+  array: any = [];
 
-  // Index of selected slot
-  selectedSlotIndex: any=[];
+  selectedSlotIndex: any = [];
+  profileDetails: any = [];
+  slotDate = new FormControl(this.getCurrentDate());
+details: any 
+  constructor(
+    private apiService: ApiService,
+    private route: Router,
+    private toaster: ToasterService,
+    private commonService: CommonService,
+
+  ) {}
+
+  ngOnInit() {
+
+    this.commonService.setAppointmentDetails({
+      encryptedPhone: 'U2FsdGVkX1+BFNn/OH1m9eS6OGVgcpTdIffzTpGciSE=',
+      entityId: '2',
+    })
+
+this.details = this.commonService.getAppointmentDetails()
+
+this.slotDate.valueChanges.subscribe(data => {
+  this.getSlots();
+  console.log(data)
+})
+
+    this.getProfile();
+    this.getSlots();
+  }
 
   // Function to handle slot selection
   selectSlot(index: any) {
@@ -44,8 +68,56 @@ export class AppoinmentComponent {
     return this.selectedSlotIndex?.number === index?.number;
   }
 
-buttonClick(){
-  console.log(this.selectedSlotIndex)
-}  
+  buttonClick() {
+    console.log(this.selectedSlotIndex);
+  }
 
+  getProfile() {
+    console.log("details",this.details);
+    const data = {
+      encryptedPhone: this.details.encryptedPhone,
+      entityId: this.details.entityId,
+    };
+    this.apiService.getProfile(data).subscribe((response: any) => {
+      console.log(response);
+      this.profileDetails = response.data;
+    });
+  }
+
+  getSlots() {
+    const data = {
+      date: this.slotDate.value,
+      encryptedPhone: this.details.encryptedPhone,
+      entityId: this.details.entityId,
+    };
+    this.apiService.getWorkSlots(data).subscribe((response: any) => {
+      console.log(response);
+      this.array = response?.data?.workSlots;
+    });
+  }
+
+  holdSlot() {
+    const data = {
+      appointmentDate: this.slotDate.value,
+      encryptedPhone: this.details.encryptedPhone,
+      entityId: this.details.entityId,
+      timeSlot: this.selectedSlotIndex?.time_slot,
+    };
+    this.apiService.slotOnHold(data).subscribe((response: any) => {
+      if (response.statusCode === 200) {
+        this.route.navigate(['appointment-details']);
+      } else {
+        this.toaster.openSnackBar(response.message);
+      }
+      console.log(response);
+    });
+  }
+
+  getCurrentDate(): string {
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = String(today.getMonth() + 1).padStart(2, '0'); // Months are zero-based
+    const day = String(today.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
+  }
 }

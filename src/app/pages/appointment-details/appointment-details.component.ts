@@ -41,6 +41,16 @@ export class AppointmentDetailsComponent implements OnInit {
 
   submit() {
     console.log(this.patientDetails.value);
-    this.patientDetails.reset();
+    const data = {
+      appointmentDate: "2024-10-11",
+      customerName: this.patientDetails.value.name,
+      customerPhone: this.patientDetails.value.phone,
+      doctorId:1,
+      entityId:"2",
+      timeSlot:"08:48 AM"
+    }
+    this.apiService.bookSlot(data).subscribe((response) => {
+console.log(response);
+    })
   }
 }
