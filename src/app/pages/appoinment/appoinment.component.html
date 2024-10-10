@@ -1,74 +1,51 @@
 <div class="main_section">
     <!-- Head part -->
-    <div class="Head_part">
-        <div>
-            <img />
-        </div>
-        <div class="header_text">
-            <span>BOOK AN APPOINTMENT</span>
-        </div>
-    </div>
-
+      <div class="header_text">
+        <span>BOOK AN APPOINTMENT</span>
+      </div>
+  
     <!-- Center part -->
-    <div>
-        <div class="inner_section_part">
-            <div class="docter_img">
-                <div class="docter_details">
-                </div>
-                <img src="doctor.png" alt="Doctor Image" class="img_responsive">
-                <div class="doctor_details">
-                    <h2>Dr. John Doe</h2>
-                    <p>Specialization: Cardiologist</p>
-                    <p>Experience: 15 Years</p>
-                    <p>Location: City Hospital, New York</p>
-                </div>
-            </div>
-
-            <div class="time_slot_part">
-                <!-- Calendar Section -->
-                <div class="book_appointment_part">
-                    <div class="book_appointment_parts">
-                        <div class="date_format">
-                            <label>Pick the date :</label>
-                            <input type="date" class="styled_input" />
-                        </div>
-                        <h1>Book Morning Appointment</h1>
-                        <div class="slot_selection">
-                            @for (item of array; track $index) {
-                            <div class="slot_selection_part">
-                                {{item.number}}<br />
-                                {{item.time}}
-                            </div>
-                            }
-
-
-
-                        </div>
-                    </div>
-
-                </div>
-
-                <!-- Suggestion Section -->
-
-            </div>
+    <div class="inner_section_part">
+      <div class="docter_img">
+        <div class="docter_details"></div>
+        <img src="doctor_2785482.png" alt="Doctor Image" class="img_responsive" />
+        <div class="doctor_details">
+          <h2>Dr. John Doe</h2>
+          <p>Specialization: Cardiologist</p>
+          <p>Experience: 15 Years</p>
+          <p>Location: City Hospital, New York</p>
         </div>
+      </div>
+  
+      <div class="time_slot_part" >
+        <!-- Calendar Section -->
+        <div class="book_appointment_part" >
+          <div class="book_appointment_parts " [@fadeInOut]="'in'">
+            <div class="date_format">
+              <label>Pick the date :</label>
+              <input type="date" class="styled_input" />
+            </div>
+            <h1>Book Morning Appointment</h1>
+            <div class="slot_selection">
+              <!-- Loop through slots and assign a click event -->
+              <div *ngFor="let item of array; let i = index"
+                   class="slot_selection_part"
+                   [ngClass]="{'selected': isSlotSelected(item)}"
+                   (click)="selectSlot(item)">
+                {{item.number}}<br />
+                {{item.time}}
+              </div>
+            </div>
+          </div>
+        </div>
+  
+        <!-- Animate the button with fade-in transition -->
+        <div class="button_part">
+          <button 
+                  type="button"
+                  [ngClass]="{'clicked': selectedSlotIndex.length !== 0}" (click)="buttonClick()">Proceed to Book</button>
+        </div>
+      </div>
     </div>
-
-    <!-- Footer part -->
-    <!-- <div class="footer_part">
-        <div class="footer_part_section">
-            <div class="span_design">
-                <span>About</span>
-            </div>
-            <div class="span_design">
-                <span>Terms & Conditions</span>
-            </div>
-            <div class="span_design">
-                <span>Privacy Policy</span>
-            </div>
-            <div class="span_design">
-                <span>Contact</span>
-            </div>
-        </div>
-    </div> -->
-</div>
+  </div>
+  
