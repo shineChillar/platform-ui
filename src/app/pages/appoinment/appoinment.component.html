@@ -7,8 +7,9 @@
     <!-- Center part -->
     <div class="inner_section_part">
       <div class="docter_img">
-        <div class="docter_details"></div>
+        <div class="docter_details">
         <img src="doctor.png" alt="Doctor Image" class="img_responsive" />
+      </div>
         <div class="doctor_details">
           <h2>{{profileDetails.doctor_name}}</h2>
           <p>Specialization: {{profileDetails.designation}}</p>
@@ -16,9 +17,9 @@
         </div>
       </div>
   
-      <div class="time_slot_part" >
+      <div class="time_slot_part " >
         <!-- Calendar Section -->
-        <div class="book_appointment_part" >
+        <div class="book_appointment_part row" >
           <div class="book_appointment_parts " [@fadeInOut]="'in'">
             <div class="date_format">
               <label>Pick the date :</label>
