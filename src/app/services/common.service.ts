@@ -20,6 +20,8 @@ appointmentDetails = {
   "notes": "No notes provided."
 }
 
+  razorpayKey= "rzp_live_SAcYiKJ3GfhRpx"
+
 getAppointmentDetails(): any {
   // sessionStorage.setItem("appointmentDetails",JSON.stringify(this.appointmentDetails) )
   const Details = sessionStorage.getItem("appointmentDetails");

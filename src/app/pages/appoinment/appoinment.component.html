@@ -23,7 +23,7 @@
           <div class="book_appointment_parts " [@fadeInOut]="'in'">
             <div class="date_format">
               <label>Pick the date :</label>
-              <input type="date" class="styled_input" [formControl]="slotDate"  />
+              <input type="date" class="styled_input" [formControl]="slotDate"  [min]="minDate" />
             </div>
             <h1>Book Morning Appointment</h1>
             <div class="slot_selection">

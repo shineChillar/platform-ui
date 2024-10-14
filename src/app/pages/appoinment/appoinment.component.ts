@@ -31,6 +31,7 @@ export class AppoinmentComponent implements OnInit {
   selectedSlotIndex: any = [];
   profileDetails: any = [];
   slotDate = new FormControl(this.getCurrentDate());
+  minDate = this.getCurrentDate()
 details: any 
   constructor(
     private apiService: ApiService,
@@ -80,7 +81,13 @@ this.slotDate.valueChanges.subscribe(data => {
     };
     this.apiService.getProfile(data).subscribe((response: any) => {
       console.log(response);
-      this.profileDetails = response.data;
+      if (response.statusCode === 200) {
+        this.profileDetails = response.data;
+        this.commonService.updateAppointmentDetails(response.data)
+      } else {
+        this.toaster.openSnackBar(response.message);
+      }
+
     });
   }
 
@@ -105,6 +112,7 @@ this.slotDate.valueChanges.subscribe(data => {
     };
     this.apiService.slotOnHold(data).subscribe((response: any) => {
       if (response.statusCode === 200) {
+        this.commonService.updateAppointmentDetails(data)
         this.route.navigate(['appointment-details']);
       } else {
         this.toaster.openSnackBar(response.message);

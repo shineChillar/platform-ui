@@ -11,7 +11,7 @@ export class HttpService {
 
   
   baseURL = "https://booking.chillarpayments.com/uat/backend"
-  
+
 
   post(url: string, data: any = {}): Observable<any | any[]> {
     return this.http.post(this.baseURL + url, data);

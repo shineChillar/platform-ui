@@ -29,4 +29,7 @@ bookSlot(data:any){
   return this.http.post(urls.bookSlot,data)
 }
 
+paymentUpdate(data:any){
+  return this.http.post(urls.paymentUpdate,data)
+}
 }
