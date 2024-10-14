@@ -11,7 +11,7 @@
     padding: 11px;
     background-color: white;
     height: 80vh;
-    background-image: url('./../../../../public/stethoscope.png');
+    // background-image: url('./../../../../public/stethoscope.png');
     /* Background image */
     background-position: center;
     /* Center the image */
@@ -27,11 +27,21 @@
     font-weight: 500;
     padding: 10px;
     background-color: #f7f7f7;
-    width: 40%;
+   
 }
 
 .details {
     width: 100%;
+}
+.card {
+    width: 100%;
+   
+   
+    border-radius: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
 }
 
 form {
@@ -85,12 +95,13 @@ input[type=number] {
 @media only screen and (max-width: 426px) {
     .bg-row {
         display: flex !important;
-        flex-direction: column !important;
+        flex-direction: row !important;
     }
 
     .bg-blur {
         width: 100%;
     }
+    
     /* Styles for mobile devices */
 }
 
@@ -111,4 +122,74 @@ input[type=number] {
 
 @media only screen and (max-width: 1280px) {
     /* Styles for small laptops */
+}
+
+.bg-row{
+    // display: grid !important;
+    // grid-template-rows: 1fr;
+    // grid-template-columns: 1fr 1.5fr;
+    // gap: 20px;
+    // padding: 25px;
+    display: flex !important;
+    justify-content: center;
+    align-items: center;
+    /* min-width: 79%; */
+    max-width: 60%;
+    align-items: center;
+    width: 100%;
+    backdrop-filter: blur(12px);
+    
+}
+img{
+    object-fit: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    backdrop-filter: blur(12px);
+
+    
+}
+
+.bg-image_part{
+    margin: 0px;
+    border-radius: 25px;
+    padding: 20px;
+   // background: linear-gradient(to right, #f89021, #f3612e);
+    
+}
+
+.bg-blur{
+    width: 100%;
+}
+.row{
+    height: 100%;
+}
+.col-6 img{
+    width: 83%;
+    height: 100%;
+    object-fit: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+   
+}
+
+.col-6 {
+    display: flex;
+    /* align-items: center; */
+    /* flex: 0 0 auto; */
+    width: 50%;
+    /* justify-content: end; */
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: x-large;
+}
+
+.col-6 img{
+    
+    object-fit: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+   border-radius: 25px;  
+    display: flex;
+    justify-content: end;
 }
