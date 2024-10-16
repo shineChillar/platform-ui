@@ -32,4 +32,12 @@ bookSlot(data:any){
 paymentUpdate(data:any){
   return this.http.post(urls.paymentUpdate,data)
 }
+
+bookingConfirmationDate(data:any){
+  return this.http.post(urls.bookingConfirmationDate,data)
+}
+
+getEncryPhoneNum(data:any){
+  return this.http.post(urls.getEncryPhoneNum,data)
+}
 }

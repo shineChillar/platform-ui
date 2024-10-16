@@ -4,7 +4,7 @@
 </div>
 <div class="doctors">
     @for (doctor of doctors; track $index) {
-    <div  class="doctor" (click)="doctorNav()">
+    <div  class="doctor" (click)="doctorNav(doctor)">
         <div class="doctor-image">
             <img [src]="doctor.img" alt="Doctor Image">
         </div>

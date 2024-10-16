@@ -1,0 +1,54 @@
+<div class="container">
+  <div class="card" id="cardToCapture">
+    <p>
+      <a (click)="close()" style="cursor: pointer"
+        ><i
+          class="fa-regular fa-circle-xmark"
+          style="float: right !important; font-size: 24px"
+        ></i
+      ></a>
+    </p>
+    <!-- Success Animation (Tick Mark) -->
+    <div class="success-animation">&#10004;</div>
+
+    <!-- Success Message -->
+    <div class="success-message">Appointment Confirmed</div>
+
+    <div class="pt-3">
+      <label for="username"
+        >Doctor Name : {{ booking_details?.doctorName }}</label
+      >
+      <br />
+      <label for="username"
+        >Patient Name : {{ booking_details?.customerName }}</label
+      >
+      <br />
+      <label for="username"
+        >Booking Date : {{ booking_details?.appointmentDate }}</label
+      >
+      <br />
+      <label for="username"
+        >Booking Time : {{ booking_details?.appointmentTimeSlot }}
+      </label>
+      <br />
+      <label for="username"
+        >Payment ID : {{ booking_details?.paymentID }}</label
+      >
+      <br />
+      <label for="username"
+        >Payment Date & Time : {{ booking_details?.paymentDate }} at
+        {{ booking_details?.paymentDate }}
+      </label>
+    </div>
+    <!-- Button Container -->
+    <div class="button-container">
+      <!-- Share Button -->
+      <button class="btn btn-primary mr-2" (click)="share()">Share</button>
+
+      <!-- Save Button -->
+      <button class="btn btn-success" (click)="captureEntirePage()">
+        Save
+      </button>
+    </div>
+  </div>
+</div>

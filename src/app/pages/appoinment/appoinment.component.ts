@@ -1,16 +1,18 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { trigger, transition, style, animate } from '@angular/animations';
-import { Router, RouterOutlet } from '@angular/router';
+import { ActivatedRoute, Router, RouterOutlet } from '@angular/router';
 import { ApiService } from '../../services/api.service';
 import { ToasterService } from '../../services/toaster.service';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { CommonService } from '../../services/common.service';
+import {MatExpansionModule} from '@angular/material/expansion';
+import { LoaderService } from '../../services/loader.service';
 
 @Component({
   selector: 'app-appoinment',
   standalone: true,
-  imports: [RouterOutlet, CommonModule,ReactiveFormsModule],
+  imports: [RouterOutlet, CommonModule, ReactiveFormsModule,MatExpansionModule],
   templateUrl: './appoinment.component.html',
   styleUrls: ['./appoinment.component.scss'],
   animations: [
@@ -31,42 +33,48 @@ export class AppoinmentComponent implements OnInit {
   selectedSlotIndex: any = [];
   profileDetails: any = [];
   slotDate = new FormControl(this.getCurrentDate());
-  minDate = this.getCurrentDate()
-details: any 
+  minDate = this.getCurrentDate();
+  uuid: any;
+  encryptedPhone: any;
+  details: any;
+  expand: boolean=true;
   constructor(
     private apiService: ApiService,
     private route: Router,
     private toaster: ToasterService,
     private commonService: CommonService,
-
+    private router: ActivatedRoute,
+    private loader: LoaderService
   ) {}
 
   ngOnInit() {
+    this.router.params.subscribe((params) => {
+      // Now you can use the id as needed
+      this.uuid = params['uuid'];
+      console.log('uuid', params['uuid']);
+    });
 
-    this.commonService.setAppointmentDetails({
-      encryptedPhone: 'U2FsdGVkX1+BFNn/OH1m9eS6OGVgcpTdIffzTpGciSE=',
-      entityId: '2',
-    })
+    this.getEncPhoneNUm();
 
-this.details = this.commonService.getAppointmentDetails()
-
-this.slotDate.valueChanges.subscribe(data => {
-  this.getSlots();
-  console.log(data)
-})
-
-    this.getProfile();
-    this.getSlots();
+    this.slotDate.valueChanges.subscribe((data) => {
+      this.getSlots();
+      console.log(data);
+    });
   }
 
   // Function to handle slot selection
   selectSlot(index: any) {
-    this.selectedSlotIndex = index;
+    if (index.booking_status === 0) {
+      this.selectedSlotIndex = index;
+    } else {
+      console.log('test slot selection');
+      this.toaster.openSnackBar('Already reserved');
+    }
   }
 
   // Check if a slot is selected
   isSlotSelected(index: any): boolean {
-    return this.selectedSlotIndex?.number === index?.number;
+    return this.selectedSlotIndex?.time_slot_id === index?.time_slot_id;
   }
 
   buttonClick() {
@@ -74,7 +82,7 @@ this.slotDate.valueChanges.subscribe(data => {
   }
 
   getProfile() {
-    console.log("details",this.details);
+    console.log('details', this.details);
     const data = {
       encryptedPhone: this.details.encryptedPhone,
       entityId: this.details.entityId,
@@ -83,11 +91,10 @@ this.slotDate.valueChanges.subscribe(data => {
       console.log(response);
       if (response.statusCode === 200) {
         this.profileDetails = response.data;
-        this.commonService.updateAppointmentDetails(response.data)
+        this.commonService.updateAppointmentDetails(response.data);
       } else {
         this.toaster.openSnackBar(response.message);
       }
-
     });
   }
 
@@ -97,9 +104,11 @@ this.slotDate.valueChanges.subscribe(data => {
       encryptedPhone: this.details.encryptedPhone,
       entityId: this.details.entityId,
     };
+    this.loader.showLoader();
     this.apiService.getWorkSlots(data).subscribe((response: any) => {
       console.log(response);
       this.array = response?.data?.workSlots;
+      this.loader.hideLoader();
     });
   }
 
@@ -112,7 +121,7 @@ this.slotDate.valueChanges.subscribe(data => {
     };
     this.apiService.slotOnHold(data).subscribe((response: any) => {
       if (response.statusCode === 200) {
-        this.commonService.updateAppointmentDetails(data)
+        this.commonService.updateAppointmentDetails(data);
         this.route.navigate(['appointment-details']);
       } else {
         this.toaster.openSnackBar(response.message);
@@ -127,5 +136,28 @@ this.slotDate.valueChanges.subscribe(data => {
     const month = String(today.getMonth() + 1).padStart(2, '0'); // Months are zero-based
     const day = String(today.getDate()).padStart(2, '0');
     return `${year}-${month}-${day}`;
+  }
+
+  getEncPhoneNUm() {
+    const data = {
+      uuid: this.uuid,
+    };
+    this.apiService.getEncryPhoneNum(data).subscribe({
+      next: (response: any) => {
+        console.log(response);
+        this.commonService.setAppointmentDetails({
+          encryptedPhone: response.data.encryptedPhone,
+          entityId: '2',
+        });
+        this.details = this.commonService.getAppointmentDetails();
+        this.encryptedPhone = response.data.encryptedPhone;
+        this.getProfile();
+        this.getSlots();
+      },
+      error: (error: any) => {
+        console.error('Error:', error);
+        this.toaster.openSnackBar('Error fetching encrypted phone number');
+      },
+    });
   }
 }

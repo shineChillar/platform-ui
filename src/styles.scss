@@ -1,1 +1,8 @@
 /* You can add global styles to this file, and also import other style files */
+@import '@angular/material/prebuilt-themes/indigo-pink.css';
+
+.mat-mdc-snack-bar-container.snackbar-success {
+    --mat-mdc-snack-bar-button-color: #fff;
+    --mdc-snackbar-container-color: #28a745;
+    --mdc-snackbar-supporting-text-color: #fff;
+  }

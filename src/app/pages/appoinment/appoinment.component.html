@@ -1,10 +1,8 @@
-<div class="main_section">
-    <!-- Head part -->
+<div >
       <div class="header_text">
         <span>BOOK AN APPOINTMENT</span>
       </div>
   
-    <!-- Center part -->
     <div class="inner_section_part">
       <div class="docter_img">
         <div class="docter_details">
@@ -18,28 +16,61 @@
       </div>
   
       <div class="time_slot_part " >
-        <!-- Calendar Section -->
         <div class="book_appointment_part row" >
           <div class="book_appointment_parts " [@fadeInOut]="'in'">
             <div class="date_format">
               <label>Pick the date :</label>
               <input type="date" class="styled_input" [formControl]="slotDate"  [min]="minDate" />
             </div>
-            <h1>Book Morning Appointment</h1>
-            <div class="slot_selection">
-              <!-- Loop through slots and assign a click event -->
-              <div *ngFor="let item of array; let i = index"
-                   class="slot_selection_part"
-                   [ngClass]="{'selected': isSlotSelected(item)}"
-                   (click)="selectSlot(item)">
-                {{i+1}}<br />
-                {{item?.time_slot}}
-              </div>
-            </div>
+            
+            <mat-accordion class="example-headers-align">
+              <mat-expansion-panel [expanded]="true" (opened)="true" >
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                    <h3>Book Morning Appointment</h3>
+                  </mat-panel-title>
+
+                </mat-expansion-panel-header>
+                <div class="slot_selection">
+                  <div *ngFor="let item of array?.morning; let i = index"
+                       class="slot_selection_part"
+                       [ngClass]="{'selected': isSlotSelected(item), 'booked': item.booking_status === 3}"
+                       (click)="selectSlot(item)">
+                    {{i+1}}<br />
+                    {{item?.time_slot}}
+                  </div>
+                </div>
+              </mat-expansion-panel>
+              @if (array?.evening?.length !==0) {
+              <mat-expansion-panel [expanded]="false" (opened)="false" >
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                    <h3>Book Evening Appointment</h3>
+                  </mat-panel-title>
+
+                </mat-expansion-panel-header>
+                <div class="slot_selection">
+                  <div *ngFor="let item of array?.evening; let i = index"
+                       class="slot_selection_part"
+                       [ngClass]="{'selected': isSlotSelected(item), 'booked': item.booking_status === 3}"
+                       (click)="selectSlot(item)">
+                    {{i+1}}<br />
+                    {{item?.time_slot}}
+                  </div>
+                  @if (array?.evening?.length ===0) {
+                    <p>No slots available</p>
+                  }
+                </div>
+              </mat-expansion-panel>
+            }
+            </mat-accordion>
+
+
+
+            
           </div>
         </div>
   
-        <!-- Animate the button with fade-in transition -->
         <div class="button_part">
           <button 
                   type="button"
@@ -49,3 +80,4 @@
     </div>
   </div>
   
+

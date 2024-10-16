@@ -12,6 +12,7 @@ import { ToasterService } from '../../services/toaster.service';
 import { Router } from '@angular/router';
 //@ts-ignore
 import {load} from '@cashfreepayments/cashfree-js';
+import { LoaderService } from '../../services/loader.service';
 
 declare var Razorpay: any;
 
@@ -40,6 +41,7 @@ export class AppointmentDetailsComponent implements OnInit {
     private toaster: ToasterService,
     private router: Router,
     private ngZone: NgZone,
+    private loader: LoaderService
   ) {}
 
   ngOnInit() {
@@ -52,9 +54,11 @@ export class AppointmentDetailsComponent implements OnInit {
       encryptedPhone: this.basicDetails.encryptedPhone,
       entityId: this.basicDetails.entityId,
     };
+    this.loader.showLoader()
     this.apiService.getPriceDetails(data).subscribe((response) => {
       this.details = response.data;
       console.log(response);
+      this.loader.hideLoader()
       // handle response
     });
   }
@@ -62,13 +66,17 @@ export class AppointmentDetailsComponent implements OnInit {
   async submit() {
     console.log(this.patientDetails.value);
     const data = {
-      appointmentDate: '2024-10-11',
-      customerName: this.patientDetails.value.name,
-      customerPhone: this.patientDetails.value.phone,
-      doctorId: this.basicDetails.doctor_id,
-      entityId: '2',
-      timeSlot: '08:48 AM',
+        "doctorId": 1,
+        "appointmentDate": "2024-10-15",
+        "timeSlot": "08:16 AM",
+        "customerName": "Rajasree",
+        "customerPhone": "9961031482",
+        "entityId": "2"
     };
+
+
+
+
 
     if (this.patientDetails.valid) {
       const formValue = {
