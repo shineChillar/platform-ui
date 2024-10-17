@@ -24,6 +24,8 @@
             </div>
             
             <mat-accordion class="example-headers-align" >
+              @if (array?.morning?.length !==0) {
+
               <mat-expansion-panel [expanded]="true" (opened)="true" >
                 <mat-expansion-panel-header>
                   <mat-panel-title>
@@ -41,6 +43,7 @@
                   </div>
                 </div>
               </mat-expansion-panel>
+            }
               @if (array?.evening?.length !==0) {
               <mat-expansion-panel [expanded]="false" (opened)="false" >
                 <mat-expansion-panel-header>
@@ -57,15 +60,19 @@
                     {{i+1}}<br />
                     {{item?.time_slot}}
                   </div>
-                  @if (array?.evening?.length ===0) {
-                    <p>No slots available</p>
-                  }
+
                 </div>
               </mat-expansion-panel>
             }
+
             </mat-accordion>
 
+            @if (array?.evening?.length ===0 && array?.morning?.length ===0) {
+              <div class="unavailable">
+                <h2  >No slots available</h2>
 
+              </div>
+            }
 
             
           </div>

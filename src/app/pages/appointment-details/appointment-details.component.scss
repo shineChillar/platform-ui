@@ -31,7 +31,9 @@
 }
 
 .details {
-    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 .card {
     width: 100%;
@@ -97,7 +99,7 @@ input[type=number] {
     }
 
     .bg-blur {
-        width: 100%;
+        width: 100% !important;
     }
     
     /* Styles for mobile devices */
@@ -114,8 +116,10 @@ input[type=number] {
     }
 
     .details {
-        width: 100%;
-    }
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        }
 }
 
 @media only screen and (max-width: 1280px) {
@@ -148,7 +152,7 @@ img{
 }
 
 .bg-blur{
-    width: 100%;
+    width: 50%;
 }
 .row{
     height: 100%;
@@ -179,9 +183,10 @@ img{
     object-fit: contain;
     background-position: center;
     background-repeat: no-repeat;
-   border-radius: 25px;  
+    border-radius: 25px;  
     display: flex;
     justify-content: end;
+    height: 35vh;
 }
 
 small {
