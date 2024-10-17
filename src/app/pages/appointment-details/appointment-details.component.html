@@ -37,10 +37,14 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="patientEmail">Contact number:</label>
-                                    <input type="number" class="form-control" id="patientEmail" formControlName="phone"
-                                        placeholder="Enter contact number">
+                                    <input type="number" class="form-control" id="patientEmail" formControlName="phone" (input)="restrictToNumbers($event)"
+                                        placeholder="Enter contact number" >
+                                        <div *ngIf="patientDetails.get('phone')?.invalid && (patientDetails.get('phone')?.touched || patientDetails.get('phone')?.dirty)">
+                                            <small *ngIf="patientDetails.get('phone')?.errors?.['required']">Phone number is required.</small>
+                                            <small *ngIf="patientDetails.get('phone')?.errors">Enter a valid phone number.</small>
+                                          </div>
                                 </div>
-                                <button type="button" (click)="submit()">Conform Booking</button>
+                                <button type="button" (click)="submit()">Confirm Booking</button>
                             </form>
                         </div>
                     </div>

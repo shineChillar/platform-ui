@@ -13,20 +13,21 @@ import { Router } from '@angular/router';
 //@ts-ignore
 import {load} from '@cashfreepayments/cashfree-js';
 import { LoaderService } from '../../services/loader.service';
+import { CommonModule } from '@angular/common';
 
 declare var Razorpay: any;
 
 @Component({
   selector: 'app-appointment-details',
   standalone: true,
-  imports: [FormsModule, ReactiveFormsModule],
+  imports: [FormsModule, ReactiveFormsModule,CommonModule],
   templateUrl: './appointment-details.component.html',
   styleUrl: './appointment-details.component.scss',
 })
 export class AppointmentDetailsComponent implements OnInit {
   patientDetails = new FormGroup({
     name: new FormControl('', Validators.required),
-    phone: new FormControl('', Validators.required),
+    phone: new FormControl('', [Validators.required,Validators.maxLength(10),Validators.minLength(10)]),
   });
 
   details: any = [];
@@ -218,5 +219,38 @@ export class AppointmentDetailsComponent implements OnInit {
       redirectTarget: "_self",
     };
     cashfree.checkout(checkoutOptions);
+  }
+
+  restrictToNumbers(event: any) {
+    const input = event.target;
+    const regex = /^[0-9]*$/; // Regular expression to match only numbers
+
+    if (!regex.test(input.value)) {
+      input.value = input.value.replace(/[^0-9]/g, ""); // Remove non-numeric characters
+    }
+
+    // Check if the input value length exceeds 10 characters
+    if (input.value.length > 10) {
+      // Truncate the input value to the first 10 characters
+      input.value = input.value.slice(0, 10);
+    }
+
+    // Update the input value in the form control
+    this.patientDetails.get("phone")?.setValue(input.value);
+
+    // Clear the errors for 'pattern' and 'minlength' before setting new errors
+    this.patientDetails.get("phone")?.setErrors(null);
+
+    // Check if the input value is not a valid number
+    if (!regex.test(input.value)) {
+      // Set pattern error
+      this.patientDetails.get("phone")?.setErrors({ pattern: true });
+    }
+
+    // Check if the input value length is less than 10
+    if (input.value.length < 10) {
+      // Set minlength error
+      this.patientDetails.get("phone")?.setErrors({ minlength: true });
+    }
   }
 }

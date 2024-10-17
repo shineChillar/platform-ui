@@ -35,13 +35,11 @@
 }
 .card {
     width: 100%;
-   
-   
     border-radius: 25px;
-    display: flex;
+    display: block;
     align-items: center;
     justify-content: center;
-    
+    height: auto;
 }
 
 form {
@@ -125,18 +123,10 @@ input[type=number] {
 }
 
 .bg-row{
-    // display: grid !important;
-    // grid-template-rows: 1fr;
-    // grid-template-columns: 1fr 1.5fr;
-    // gap: 20px;
-    // padding: 25px;
     display: flex !important;
     justify-content: center;
     align-items: center;
-    /* min-width: 79%; */
-    max-width: 60%;
     align-items: center;
-    width: 100%;
     backdrop-filter: blur(12px);
     
 }
@@ -193,3 +183,11 @@ img{
     display: flex;
     justify-content: end;
 }
+
+small {
+    font-size: small;
+    color: red;
+    font-weight: 400;
+
+}
+

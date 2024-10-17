@@ -23,7 +23,7 @@
               <input type="date" class="styled_input" [formControl]="slotDate"  [min]="minDate" />
             </div>
             
-            <mat-accordion class="example-headers-align">
+            <mat-accordion class="example-headers-align" >
               <mat-expansion-panel [expanded]="true" (opened)="true" >
                 <mat-expansion-panel-header>
                   <mat-panel-title>
@@ -34,7 +34,7 @@
                 <div class="slot_selection">
                   <div *ngFor="let item of array?.morning; let i = index"
                        class="slot_selection_part"
-                       [ngClass]="{'selected': isSlotSelected(item), 'booked': item.booking_status === 3}"
+                       [ngClass]="{'selected': isSlotSelected(item), 'booked': item.booking_status !== 0}"
                        (click)="selectSlot(item)">
                     {{i+1}}<br />
                     {{item?.time_slot}}

@@ -128,9 +128,8 @@ span {
 }
 .button_part button {
   border: none;
-  border-radius: 25px;
+  border-radius: 10px;
   height: 50px;
-  min-width: 325px;
   background: grey;
   color: white;
   font-weight: 600;
@@ -162,7 +161,7 @@ button:hover {
   grid-template-columns: auto auto auto auto auto auto auto;
   justify-content: stretch;
   gap: 18px;
-  overflow: auto;
+  overflow: visible;
 }
 
 .slot_selection_part {
@@ -359,7 +358,10 @@ h1 {
   
   .slot_selection{
     display: grid;
-    grid-template-columns: auto auto auto auto;
+    grid-template-columns: auto auto auto auto auto auto;
+    justify-content: space-evenly;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(auto, 1fr));
     justify-content: space-evenly;
   }
 
@@ -384,6 +386,18 @@ h1 {
   .styled_input {
     width: 75%;
   }
+
+
+
+}
+::ng-deep {
+  @media (max-width: 480px) {
+    .mat-expansion-panel-content {
+      overflow: scroll !important;
+  
+    }
+  }
+
 }
 
 .book_appointment_parts {
@@ -445,3 +459,8 @@ label {
 .booked {
   background-color: #FF6D60;
   color: white;}
+
+  mat-expansion-panel-header{
+    margin: 10px;
+  }
+

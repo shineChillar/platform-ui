@@ -10,7 +10,7 @@ export class HttpService {
   constructor(private http :HttpClient) { }
 
   
-  baseURL = "https://booking.chillarpayments.com/backend/"
+  baseURL = "https://booking.chillarpayments.com/backend"
 
 
   post(url: string, data: any = {}): Observable<any | any[]> {
