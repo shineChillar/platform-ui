@@ -1,6 +1,28 @@
 <div >
       <div class="header_text">
         <span>BOOK AN APPOINTMENT</span>
+        <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+          <i class="material-symbols-outlined">
+            more_vert
+        </i>
+        </button>
+        <mat-menu #menu="matMenu">
+          <button mat-menu-item (click)="openServ('about')">
+            <span >About </span>
+          </button>
+          <button mat-menu-item  (click)="openServ('term')">
+            <span>Terms & Conditions</span>
+          </button>
+          <button mat-menu-item (click)="openServ('privacy')">
+            <span>Privacy policy</span>
+          </button>
+          <button mat-menu-item (click)="openServ('Cancellation')">
+            <span>Cancellation policy</span>
+          </button>
+          <button mat-menu-item (click)="openServ('contact')">
+            <span>Contact Us</span>
+          </button>
+        </mat-menu>
       </div>
   
     <div class="inner_section_part">
@@ -19,7 +41,7 @@
         <div class="book_appointment_part row" >
           <div class="book_appointment_parts " [@fadeInOut]="'in'">
             <div class="date_format">
-              <label>Pick the date :</label>
+              <label>Choose a date :</label>
               <input type="date" class="styled_input" [formControl]="slotDate"  [min]="minDate" />
             </div>
             

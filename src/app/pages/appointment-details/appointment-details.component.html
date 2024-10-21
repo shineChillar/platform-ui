@@ -1,6 +1,28 @@
 <div class="container-fluid">
     <div class="header">
-        <h2>Appointment Details</h2>
+        <span>Appointment Details</span>
+        <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+            <i class="material-symbols-outlined">
+              more_vert
+          </i>
+          </button>
+          <mat-menu #menu="matMenu">
+            <button mat-menu-item (click)="openServ('about')">
+              <span >About </span>
+            </button>
+            <button mat-menu-item  (click)="openServ('term')">
+              <span>Terms & Conditions</span>
+            </button>
+            <button mat-menu-item (click)="openServ('privacy')">
+              <span>Privacy policy</span>
+            </button>
+            <button mat-menu-item (click)="openServ('Cancellation')">
+              <span>Cancellation policy</span>
+            </button>
+            <button mat-menu-item (click)="openServ('contact')">
+              <span>Contact Us</span>
+            </button>
+          </mat-menu>
     </div>
 
     <div class="card bg-card">
@@ -12,7 +34,7 @@
                 <div class="row">
                     <div class="col-sm-12 col-md-6 p-4" >
                         <p>Doctor: {{basicDetails.doctor_name}}</p>
-                        <p>Date: {{basicDetails.appointmentDate}}</p>
+                        <p>Date: {{basicDetails.appointmentDate | date:"dd-MM-YYYY"}}</p>
                         <p>Time: {{basicDetails.timeSlot}}</p>
                         <p>Booking fee: {{details.bookingFee}}</p>
                         <!-- <p>Consultation fee:{{details.consultationCharge}}</p> -->
@@ -32,7 +54,7 @@
                                 <h3>Patient Details</h3>
                                 <div class="form-group">
                                     <label for="patientName">Patient Name:</label>
-                                    <input type="text" class="form-control" id="patientName" formControlName="name"
+                                    <input type="text" class="form-control" id="patientName" formControlName="name" onkeypress="return /[0-9a-zA-Z]/i.test(event.key)"
                                         placeholder="Enter patient's name">
                                 </div>
                                 <div class="form-group">
@@ -44,7 +66,10 @@
                                             <small *ngIf="patientDetails.get('phone')?.errors">Enter a valid phone number.</small>
                                           </div>
                                 </div>
-                                <button type="button" (click)="submit()">Confirm Booking</button>
+                                <div class="subbtn">
+                                    <button type="button" (click)="submit()">Confirm Booking</button>
+
+                                </div>
                             </form>
                         </div>
                     </div>

@@ -1,11 +1,36 @@
+// .header {
+//     padding: 2px;
+//     text-align: center;
+//     background: linear-gradient(to right, #f89021, #f3612e);
+//     border-radius: 4px;
+//     margin-top: 1%;
+//     color: white;
+// }
+
 .header {
-    padding: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(to right, #f89021 50%, #f3612e);
+  
+    backdrop-filter: blur(12px);
+    width: 100%;
+    height: 68px;
+    border-radius: 5px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     text-align: center;
-    background: linear-gradient(to right, #f89021, #f3612e);
-    border-radius: 4px;
-    margin-top: 1%;
+
+    i {
+        color: white;
+    }
+  }
+  
+  .header span {
+    font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+    font-size: 30px;
     color: white;
-}
+    flex-grow: 1;
+  }
 
 .bg-card {
     padding: 11px;
@@ -102,6 +127,10 @@ input[type=number] {
         width: 100% !important;
     }
     
+    .subbtn{
+        display: flex !important;
+        justify-content: center !important;
+    }
     /* Styles for mobile devices */
 }
 
@@ -119,6 +148,10 @@ input[type=number] {
         display: flex;
         justify-content: center;
         align-items: center;
+        }
+        .subbtn{
+            display: flex;
+            justify-content: end;
         }
 }
 

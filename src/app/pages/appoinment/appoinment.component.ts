@@ -6,13 +6,24 @@ import { ApiService } from '../../services/api.service';
 import { ToasterService } from '../../services/toaster.service';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { CommonService } from '../../services/common.service';
-import {MatExpansionModule} from '@angular/material/expansion';
+import { MatExpansionModule } from '@angular/material/expansion';
 import { LoaderService } from '../../services/loader.service';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-appoinment',
   standalone: true,
-  imports: [RouterOutlet, CommonModule, ReactiveFormsModule,MatExpansionModule],
+  imports: [
+    RouterOutlet,
+    CommonModule,
+    ReactiveFormsModule,
+    MatExpansionModule,
+    MatMenuModule,
+    MatIconModule,
+    MatButtonModule,
+  ],
   templateUrl: './appoinment.component.html',
   styleUrls: ['./appoinment.component.scss'],
   animations: [
@@ -38,7 +49,7 @@ export class AppoinmentComponent implements OnInit {
   entity: any;
   encryptedPhone: any;
   details: any;
-  expand: boolean=true;
+  expand: boolean = true;
   constructor(
     private apiService: ApiService,
     private route: Router,
@@ -111,13 +122,11 @@ export class AppoinmentComponent implements OnInit {
         console.log(response);
         this.array = response?.data?.workSlots;
         this.loader.hideLoader();
-      }else {
+      } else {
         this.toaster.openSnackBar(response.message);
         this.loader.hideLoader();
       }
-
     });
-
   }
 
   holdSlot() {
@@ -127,6 +136,7 @@ export class AppoinmentComponent implements OnInit {
       entityId: this.details.entityId,
       timeSlot: this.selectedSlotIndex?.time_slot,
     };
+    if(this.selectedSlotIndex?.length !==0){
     this.apiService.slotOnHold(data).subscribe((response: any) => {
       if (response.statusCode === 200) {
         this.commonService.updateAppointmentDetails(data);
@@ -136,6 +146,10 @@ export class AppoinmentComponent implements OnInit {
       }
       console.log(response);
     });
+  }
+  else{
+    this.toaster.openSnackBar('Please select a slot');
+  }
   }
 
   getCurrentDate(): string {
@@ -160,7 +174,7 @@ export class AppoinmentComponent implements OnInit {
         });
         this.details = this.commonService.getAppointmentDetails();
         this.encryptedPhone = response.data.encryptedPhone;
-        this.entity =response.data.entityId;
+        this.entity = response.data.entityId;
         this.loader.hideLoader();
         this.getProfile();
         this.getSlots();
@@ -171,5 +185,26 @@ export class AppoinmentComponent implements OnInit {
         this.toaster.openSnackBar('Error fetching encrypted phone number');
       },
     });
+  }
+  openServ(key: string) {
+    let url = '';
+    switch (key) {
+      case 'term':
+        url = 'https://www.chillarpayments.com/terms-and-conditions.html';
+        break;
+      case 'privacy':
+        url = 'https://www.chillarpayments.com/privacy-policy.html';
+        break;
+      case 'Cancellation':
+        url = 'https://www.chillarpayments.com/Cancellation-Policy.html';
+        break;
+      case 'about':
+        url = 'https://www.chillarpayments.com/privatepractice.html';
+        break;
+      case 'contact':
+        url = 'https://www.chillarpayments.com/contactus.html';
+        break;
+    }
+    window.open(url);
   }
 }

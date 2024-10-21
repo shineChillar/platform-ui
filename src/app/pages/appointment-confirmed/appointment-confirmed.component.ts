@@ -4,13 +4,15 @@ import { ApiService } from '../../services/api.service';
 import Swal from "sweetalert2";
 import html2canvas from "html2canvas";
 import { Router } from '@angular/router';
+import { CommonService } from '../../services/common.service';
+import { CommonModule } from '@angular/common';
 
 
 
 @Component({
   selector: 'app-appointment-confirmed',
   standalone: true,
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './appointment-confirmed.component.html',
   styleUrl: './appointment-confirmed.component.scss',
 })
@@ -20,19 +22,25 @@ export class AppointmentConfirmedComponent {
   whatsapp_message_2!: string;
   DocId: any;
   businessId: any;
+  basicDetails: any;
 
 
   constructor(private service: ApiService,
      private toaster: ToasterService,
-    private router: Router) {
+    private router: Router,
+  private commonService: CommonService) {
     this.businessId = "12345";
     this.DocId = "67890";
-    this.getAppointment();
   }
+
+ngOnInit(){
+  this.basicDetails = this.commonService.getAppointmentDetails();
+this.getAppointment();
+}
 
   getAppointment() {
     const data = {
-      bookingId: 1,
+      bookingId: this.basicDetails.bookingId ,
       // bookingId: 2
     };
 

@@ -9,7 +9,9 @@
       ></a>
     </p>
     <!-- Success Animation (Tick Mark) -->
-    <div class="success-animation">&#10004;</div>
+    <div class="success-animation">
+      <img src="pngwing.png" alt="">
+    </div>
 
     <!-- Success Message -->
     <div class="success-message">Appointment Confirmed</div>
@@ -24,7 +26,7 @@
       >
       <br />
       <label for="username"
-        >Booking Date : {{ booking_details?.appointmentDate }}</label
+        >Booking Date : {{ booking_details?.appointmentDate | date:"dd-MM-YYYY" }}</label
       >
       <br />
       <label for="username"
@@ -36,8 +38,8 @@
       >
       <br />
       <label for="username"
-        >Payment Date & Time : {{ booking_details?.paymentDate }} at
-        {{ booking_details?.paymentDate }}
+        >Payment Date & Time : {{ booking_details?.paymentDate  | date:"dd-MM-YYYY, h:mm a" }} at
+        {{ booking_details?.paymentDate  | date:"dd-MM-YYYY, h:mm a"}}
       </label>
     </div>
     <!-- Button Container -->

@@ -6,5 +6,6 @@ export enum urls {
   bookSlot = '/api/v1/booking/bookAppointment',
   paymentUpdate = '/api/v1/payment/payment-update',
   bookingConfirmationDate = '/api/v1/booking/booking-confirmation-data',
-  getEncryPhoneNum = "/api/v1/customer/get-encryptphone"
+  getEncryPhoneNum = "/api/v1/customer/get-encryptphone",
+  bookingonfirmationData = "/api/v1/booking/booking-confirmation-data"
 }

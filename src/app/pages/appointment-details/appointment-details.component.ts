@@ -14,13 +14,16 @@ import { Router } from '@angular/router';
 import {load} from '@cashfreepayments/cashfree-js';
 import { LoaderService } from '../../services/loader.service';
 import { CommonModule } from '@angular/common';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
 
 declare var Razorpay: any;
 
 @Component({
   selector: 'app-appointment-details',
   standalone: true,
-  imports: [FormsModule, ReactiveFormsModule,CommonModule],
+  imports: [FormsModule, ReactiveFormsModule,CommonModule,MatMenuModule,MatIconModule,MatButtonModule],
   templateUrl: './appointment-details.component.html',
   styleUrl: './appointment-details.component.scss',
 })
@@ -66,18 +69,6 @@ export class AppointmentDetailsComponent implements OnInit {
 
   async submit() {
     console.log(this.patientDetails.value);
-    const data = {
-        "doctorId": 1,
-        "appointmentDate": "2024-10-15",
-        "timeSlot": "08:16 AM",
-        "customerName": "Rajasree",
-        "customerPhone": "9961031482",
-        "entityId": "2"
-    };
-
-
-
-
 
     if (this.patientDetails.valid) {
       const formValue = {
@@ -109,18 +100,21 @@ export class AppointmentDetailsComponent implements OnInit {
               this.router.navigate(['/AppointmentConfirmed']);
             }
           } else {
+            this.commonService.updateAppointmentDetails(response.data);
+
             //comment to disable the PG
-            if (response.data.currentPg == 1) {
-              this.initiateRazorpay(
-                response.data.orderId,
-                response.data.amount
-              );
-            } else if (response.data.currentPg == 2) {
-              this.cashfreeCreateorder(
-                response.data.orderId,
-                response.data.payment_session_id
-              );
-            }
+            // if (response.data.currentPg == 1) {
+            //   this.initiateRazorpay(
+            //     response.data.orderId,
+            //     response.data.amount
+            //   );
+            // } else if (response.data.currentPg == 2) {
+            //   this.cashfreeCreateorder(
+            //     response.data.orderId,
+            //     response.data.payment_session_id
+            //   );
+            // }
+            console.log(response)
           }
         } else {
           this.toaster.openSnackBar(response.message);
@@ -252,5 +246,27 @@ export class AppointmentDetailsComponent implements OnInit {
       // Set minlength error
       this.patientDetails.get("phone")?.setErrors({ minlength: true });
     }
+  }
+
+  openServ(key: string) {
+    let url = '';
+    switch (key) {
+      case 'term':
+        url = 'https://www.chillarpayments.com/terms-and-conditions.html';
+        break;
+      case 'privacy':
+        url = 'https://www.chillarpayments.com/privacy-policy.html';
+        break;
+      case 'Cancellation':
+        url = 'https://www.chillarpayments.com/Cancellation-Policy.html';
+        break;
+      case 'about':
+        url = 'https://www.chillarpayments.com/privatepractice.html';
+        break;
+      case 'contact':
+        url = 'https://www.chillarpayments.com/contactus.html';
+        break;
+    }
+    window.open(url);
   }
 }
