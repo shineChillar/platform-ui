@@ -103,18 +103,18 @@ export class AppointmentDetailsComponent implements OnInit {
             this.commonService.updateAppointmentDetails(response.data);
 
             //comment to disable the PG
-            // if (response.data.currentPg == 1) {
-            //   this.initiateRazorpay(
-            //     response.data.orderId,
-            //     response.data.amount
-            //   );
-            // } else if (response.data.currentPg == 2) {
-            //   this.cashfreeCreateorder(
-            //     response.data.orderId,
-            //     response.data.payment_session_id
-            //   );
-            // }
-            console.log(response)
+            if (response.data.currentPg == 1) {
+              this.initiateRazorpay(
+                response.data.orderId,
+                response.data.amount
+              );
+            } else if (response.data.currentPg == 2) {
+              this.cashfreeCreateorder(
+                response.data.orderId,
+                response.data.payment_session_id
+              );
+            }
+            console.log('working',response)
           }
         } else {
           this.toaster.openSnackBar(response.message);

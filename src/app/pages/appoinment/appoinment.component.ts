@@ -127,6 +127,7 @@ export class AppoinmentComponent implements OnInit {
         this.loader.hideLoader();
       }
     });
+
   }
 
   holdSlot() {

@@ -40,4 +40,12 @@ bookingConfirmationDate(data:any){
 getEncryPhoneNum(data:any){
   return this.http.post(urls.getEncryPhoneNum,data)
 }
+
+paymentVerify(orderId:any){
+  return this.http.post(urls.paymentVerify,orderId)
+}
+
+paymentFailed(data:any){
+  return this.http.post(urls.paymentFailed,data)
+}
 }

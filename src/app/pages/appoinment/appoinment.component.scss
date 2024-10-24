@@ -120,8 +120,6 @@
   width: 100%;
   // max-width: 1182px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-
-  flex-wrap: wrap;
   height: 100%;
 }
 
@@ -398,7 +396,8 @@ h1 {
   @media (max-width: 480px) {
     .mat-expansion-panel-content {
       overflow: scroll !important;
-  
+      margin-left: 10px;
+
     }
   }
 
@@ -473,4 +472,21 @@ label {
   justify-content: center;
   align-items: center;
   height: 35vh;
+}
+
+mat-expansion-panel {
+  // max-height: 50vh;
+  margin-bottom: 15px !important;
+}
+
+mat-expansion-panel-body{
+  overflow: scroll;
+}
+
+::ng-deep {
+    .mat-expansion-panel-content {
+      overflow-y: scroll !important;
+      height: 45vh;
+    }
+
 }

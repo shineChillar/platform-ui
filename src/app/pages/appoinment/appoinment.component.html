@@ -1,112 +1,123 @@
-<div >
-      <div class="header_text">
-        <span>BOOK AN APPOINTMENT</span>
-        <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
-          <i class="material-symbols-outlined">
-            more_vert
-        </i>
-        </button>
-        <mat-menu #menu="matMenu">
-          <button mat-menu-item (click)="openServ('about')">
-            <span >About </span>
-          </button>
-          <button mat-menu-item  (click)="openServ('term')">
-            <span>Terms & Conditions</span>
-          </button>
-          <button mat-menu-item (click)="openServ('privacy')">
-            <span>Privacy policy</span>
-          </button>
-          <button mat-menu-item (click)="openServ('Cancellation')">
-            <span>Cancellation policy</span>
-          </button>
-          <button mat-menu-item (click)="openServ('contact')">
-            <span>Contact Us</span>
-          </button>
-        </mat-menu>
-      </div>
-  
-    <div class="inner_section_part">
-      <div class="docter_img">
-        <div class="docter_details">
+<div>
+  <div class="header_text">
+    <span>BOOK AN APPOINTMENT</span>
+    <button
+      mat-icon-button
+      [matMenuTriggerFor]="menu"
+      aria-label="Example icon-button with a menu"
+    >
+      <i class="material-symbols-outlined"> more_vert </i>
+    </button>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item (click)="openServ('about')">
+        <span>About </span>
+      </button>
+      <button mat-menu-item (click)="openServ('term')">
+        <span>Terms & Conditions</span>
+      </button>
+      <button mat-menu-item (click)="openServ('privacy')">
+        <span>Privacy policy</span>
+      </button>
+      <button mat-menu-item (click)="openServ('Cancellation')">
+        <span>Cancellation policy</span>
+      </button>
+      <button mat-menu-item (click)="openServ('contact')">
+        <span>Contact Us</span>
+      </button>
+    </mat-menu>
+  </div>
+
+  <div class="inner_section_part">
+    <div class="docter_img">
+      <div class="docter_details">
         <img src="doctor.png" alt="Doctor Image" class="img_responsive" />
       </div>
-        <div class="doctor_details">
-          <h2>{{profileDetails.doctor_name}}</h2>
-          <p>Specialization: {{profileDetails.designation}}</p>
-          <p>Qualification: {{profileDetails.qualification}}</p>
+      <div class="doctor_details">
+        <h2>{{ profileDetails.doctor_name }}</h2>
+        <p>Specialization: {{ profileDetails.designation }}</p>
+        <p>Qualification: {{ profileDetails.qualification }}</p>
+      </div>
+    </div>
+
+    <div class="time_slot_part">
+      <div class="book_appointment_part row">
+        <div class="book_appointment_parts" [@fadeInOut]="'in'">
+          <div class="date_format">
+            <label>Choose a date :</label>
+            <input
+              type="date"
+              class="styled_input"
+              [formControl]="slotDate"
+              [min]="minDate"
+            />
+          </div>
+
+          <mat-accordion class="example-headers-align">
+            @if (array?.morning?.length !==0) {
+
+            <mat-expansion-panel [expanded]="true" (opened)="(true)">
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  <h3>Book Morning Appointment</h3>
+                </mat-panel-title>
+              </mat-expansion-panel-header>
+              <div class="slot_selection">
+                <div
+                  *ngFor="let item of array?.morning; let i = index"
+                  class="slot_selection_part"
+                  [ngClass]="{
+                    selected: isSlotSelected(item),
+                    booked: item.booking_status !== 0
+                  }"
+                  (click)="selectSlot(item)"
+                >
+                  {{ i + 1 }}<br />
+                  {{ item?.time_slot }}
+                </div>
+              </div>
+            </mat-expansion-panel>
+            } @if (array?.evening?.length !==0) {
+            <mat-expansion-panel [expanded]="false" (opened)="(false)">
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  <h3>Book Evening Appointment</h3>
+                </mat-panel-title>
+              </mat-expansion-panel-header>
+              <div class="slot_selection">
+                <div
+                  *ngFor="let item of array?.evening; let i = index"
+                  class="slot_selection_part"
+                  [ngClass]="{
+                    selected: isSlotSelected(item),
+                    booked: item.booking_status === 3
+                  }"
+                  (click)="selectSlot(item)"
+                >
+                  {{ i + 1 }}<br />
+                  {{ item?.time_slot }}
+                </div>
+              </div>
+            </mat-expansion-panel>
+            }
+          </mat-accordion>
+
+          @if (array?.evening?.length ===0 && array?.morning?.length ===0) {
+          <div class="unavailable">
+            <h2>No slots available</h2>
+          </div>
+          }
         </div>
       </div>
-  
-      <div class="time_slot_part " >
-        <div class="book_appointment_part row" >
-          <div class="book_appointment_parts " [@fadeInOut]="'in'">
-            <div class="date_format">
-              <label>Choose a date :</label>
-              <input type="date" class="styled_input" [formControl]="slotDate"  [min]="minDate" />
-            </div>
-            
-            <mat-accordion class="example-headers-align" >
-              @if (array?.morning?.length !==0) {
 
-              <mat-expansion-panel [expanded]="true" (opened)="true" >
-                <mat-expansion-panel-header>
-                  <mat-panel-title>
-                    <h3>Book Morning Appointment</h3>
-                  </mat-panel-title>
-
-                </mat-expansion-panel-header>
-                <div class="slot_selection">
-                  <div *ngFor="let item of array?.morning; let i = index"
-                       class="slot_selection_part"
-                       [ngClass]="{'selected': isSlotSelected(item), 'booked': item.booking_status !== 0}"
-                       (click)="selectSlot(item)">
-                    {{i+1}}<br />
-                    {{item?.time_slot}}
-                  </div>
-                </div>
-              </mat-expansion-panel>
-            }
-              @if (array?.evening?.length !==0) {
-              <mat-expansion-panel [expanded]="false" (opened)="false" >
-                <mat-expansion-panel-header>
-                  <mat-panel-title>
-                    <h3>Book Evening Appointment</h3>
-                  </mat-panel-title>
-
-                </mat-expansion-panel-header>
-                <div class="slot_selection">
-                  <div *ngFor="let item of array?.evening; let i = index"
-                       class="slot_selection_part"
-                       [ngClass]="{'selected': isSlotSelected(item), 'booked': item.booking_status === 3}"
-                       (click)="selectSlot(item)">
-                    {{i+1}}<br />
-                    {{item?.time_slot}}
-                  </div>
-
-                </div>
-              </mat-expansion-panel>
-            }
-
-            </mat-accordion>
-
-            @if (array?.evening?.length ===0 && array?.morning?.length ===0) {
-              <div class="unavailable">
-                <h2  >No slots available</h2>
-
-              </div>
-            }
-
-            
-          </div>
-        </div>
-  
-        <div class="button_part">
-          <button 
-                  type="button"
-                  [ngClass]="{'clicked': selectedSlotIndex.length !== 0}" (click)="holdSlot()">Proceed to Book</button>
-        </div>
+      <div class="button_part">
+        <button
+          type="button"
+          [ngClass]="{ clicked: selectedSlotIndex.length !== 0 }"
+          (click)="holdSlot()"
+        >
+          Proceed to Book
+        </button>
       </div>
     </div>
   </div>
-  
-
+</div>
