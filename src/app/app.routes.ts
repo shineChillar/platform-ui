@@ -5,6 +5,7 @@ import { AppointmentDetailsComponent } from './pages/appointment-details/appoint
 import { SlotBookingComponent } from './pages/slot-booking/slot-booking.component';
 import { AppointmentConfirmedComponent } from './pages/appointment-confirmed/appointment-confirmed.component';
 import { PaymentFailedComponent } from './pages/payment-failed/payment-failed.component';
+import { PendingPaymentVerificationComponent } from './pages/pending-payment-verification/pending-payment-verification.component';
 
 export const routes: Routes = [
     {
@@ -21,5 +22,8 @@ export const routes: Routes = [
     },
     {
         path: "payment-failed",component: PaymentFailedComponent
+    },
+    {
+        path: "verify-payment",component: PendingPaymentVerificationComponent
     }
 ];
