@@ -6,6 +6,7 @@ import { SlotBookingComponent } from './pages/slot-booking/slot-booking.componen
 import { AppointmentConfirmedComponent } from './pages/appointment-confirmed/appointment-confirmed.component';
 import { PaymentFailedComponent } from './pages/payment-failed/payment-failed.component';
 import { PendingPaymentVerificationComponent } from './pages/pending-payment-verification/pending-payment-verification.component';
+import { BackwardGuard } from './core/backward.guard';
 
 export const routes: Routes = [
     {

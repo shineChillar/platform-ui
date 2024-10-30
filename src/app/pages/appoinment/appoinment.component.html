@@ -55,7 +55,7 @@
           <mat-accordion class="example-headers-align">
             @if (array?.morning?.length !==0) {
 
-            <mat-expansion-panel [expanded]="true" (opened)="(true)">
+            <mat-expansion-panel [expanded]="array?.morning?.length !==0" (opened)="(true)">
               <mat-expansion-panel-header>
                 <mat-panel-title>
                   <h3>Book Morning Appointment</h3>
@@ -71,13 +71,18 @@
                   }"
                   (click)="selectSlot(item)"
                 >
-                  {{ i + 1 }}<br />
-                  {{ item?.time_slot }}
+                <div class="count">
+                  {{ i + 1 }}
+                </div>
+                  <br />
+                  <strong class="time">
+                    {{ item?.time_slot }}
+                  </strong>
                 </div>
               </div>
             </mat-expansion-panel>
             } @if (array?.evening?.length !==0) {
-            <mat-expansion-panel [expanded]="false" (opened)="(false)">
+            <mat-expansion-panel [expanded]="array?.morning?.length ===0" (opened)="(false)">
               <mat-expansion-panel-header>
                 <mat-panel-title>
                   <h3>Book Evening Appointment</h3>
@@ -93,8 +98,13 @@
                   }"
                   (click)="selectSlot(item)"
                 >
-                  {{ i + 1 }}<br />
-                  {{ item?.time_slot }}
+                <div class="count">
+                  {{ i + 1 }}
+                </div><br />
+                  <strong class="time">
+                    {{ item?.time_slot }}
+                  </strong>
+                  
                 </div>
               </div>
             </mat-expansion-panel>

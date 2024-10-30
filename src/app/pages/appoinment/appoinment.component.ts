@@ -137,20 +137,19 @@ export class AppoinmentComponent implements OnInit {
       entityId: this.details.entityId,
       timeSlot: this.selectedSlotIndex?.time_slot,
     };
-    if(this.selectedSlotIndex?.length !==0){
-    this.apiService.slotOnHold(data).subscribe((response: any) => {
-      if (response.statusCode === 200) {
-        this.commonService.updateAppointmentDetails(data);
-        this.route.navigate(['appointment-details']);
-      } else {
-        this.toaster.openSnackBar(response.message);
-      }
-      console.log(response);
-    });
-  }
-  else{
-    this.toaster.openSnackBar('Please select a slot');
-  }
+    if (this.selectedSlotIndex?.length !== 0) {
+      this.apiService.slotOnHold(data).subscribe((response: any) => {
+        if (response.statusCode === 200) {
+          this.commonService.updateAppointmentDetails(data);
+          this.route.navigate(['appointment-details']);
+        } else {
+          this.toaster.openSnackBar(response.message);
+        }
+        console.log(response);
+      });
+    } else {
+      this.toaster.openSnackBar('Please select a slot');
+    }
   }
 
   getCurrentDate(): string {
@@ -169,16 +168,22 @@ export class AppoinmentComponent implements OnInit {
     this.apiService.getEncryPhoneNum(data).subscribe({
       next: (response: any) => {
         console.log(response);
-        this.commonService.setAppointmentDetails({
-          encryptedPhone: response.data.encryptedPhone,
-          entityId: response.data.entityId,
-        });
-        this.details = this.commonService.getAppointmentDetails();
-        this.encryptedPhone = response.data.encryptedPhone;
-        this.entity = response.data.entityId;
-        this.loader.hideLoader();
-        this.getProfile();
-        this.getSlots();
+        if (response.statusCode === 200) {
+          this.commonService.setAppointmentDetails({
+            encryptedPhone: response.data.encryptedPhone,
+            entityId: response.data.entityId,
+            uuid:this.uuid
+          });
+          this.details = this.commonService.getAppointmentDetails();
+          this.encryptedPhone = response.data.encryptedPhone;
+          this.entity = response.data.entityId;
+          this.loader.hideLoader();
+          this.getProfile();
+          this.getSlots();
+        }
+        {
+          this.loader.hideLoader();
+        }
       },
       error: (error: any) => {
         this.loader.hideLoader();

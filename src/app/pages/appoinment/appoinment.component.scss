@@ -46,7 +46,7 @@
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   padding: 20px;
   gap: 20px;
-  height: 85vh;
+  height: 90vh;
 }
 .docter_details{
   display: flex;
@@ -297,11 +297,11 @@ h1 {
 .date_format label{
     font-size: 20px;
   }
-  .book_appointment_part,
-  .suggestion_part {
-    width: 100%;
-    max-width: none;
-  }
+  // .book_appointment_part,
+  // .suggestion_part {
+  //   width: 100%;
+  //   max-width: none;
+  // }
   .styled_input {
     max-width: 200px;
   }
@@ -311,98 +311,61 @@ h1 {
   .inner_section_part {
     flex-direction: column;
     padding: 10px;
-  }
-  .header_text,
-  span {
-    font-size: 25px;
+    height: auto; // Allow flexibility on smaller screens
   }
 
-  .inner_section_part {
-    flex-direction: column;
-    padding: 10px;
-    height: 100%;
-    width: 100%;
-  }
-
-  .time_slot_part {
-    flex-direction: column;
-    align-items: stretch;
-    width: 100%;
-  }
-  .docter_details {
-    flex: 40%;
-  }
   .doctor_details {
     width: 100%;
-    flex: 60%;
-    height: 100%;
-    backdrop-filter: blur(12px);
-    background: linear-gradient(
-      135deg,
-      rgba(232, 229, 229, 0.7) 0%,
-      rgba(255, 255, 255, 0.493) 100%
-    );
-    border-radius: 25px;
-    /* padding: 20px; */
-    margin: 16px;
-    /* min-width: 255px; */
+    flex: 1;
     min-height: 207px;
     border-radius: 25px;
-  }
-  h1{
-    font-size: larger;
-
-  }
-  .date_format label{
-    font-size: 12px;
-  }
-  
-  
-  .slot_selection{
-    display: grid;
-    grid-template-columns: auto auto auto auto auto auto;
-    justify-content: space-evenly;
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(auto, 1fr));
-    justify-content: space-evenly;
+    margin: 16px;
+    backdrop-filter: blur(12px);
+    background: linear-gradient(135deg, rgba(232, 229, 229, 0.7), rgba(255, 255, 255, 0.493));
   }
 
-  .slot_selection_part{
-    width:100%;
-    height: 100%;
-    font-size: medium;
-  }
-  .docter_img {
+  /* Replace grid with flex */
+  .slot_selection {
     display: flex;
-    flex-direction: row;
-    width: 100%;
-    max-width: none;
-    gap: 10px;
+    flex-wrap: wrap; // Allow items to wrap onto the next line
+    gap: 4px; // Gap between items
+    justify-content:start; // Distribute items evenly
   }
 
-  .book_appointment_part,
-  .suggestion_part {
-    width: 100%;
-    max-width: none;
+  .slot_selection_part {
+    flex: 1 ; // Allow items to grow and shrink, with a base width of 80px
+    max-width: 18vw; // Ensure minimum size
+    text-align: center; // Center text
+    cursor: pointer; // Pointer cursor for interaction
+    padding: 10px; // Padding for items
+    border: 0.5px solid #bbb; // Border styling
+    border-radius: 12px; // Rounded corners
+    transition: all 0.3s ease-in-out; // Smooth transition
   }
-  .styled_input {
-    width: 75%;
+
+  .button_part {
+    justify-content:center;
   }
 
-
-
+  
 }
+
 ::ng-deep {
   @media (max-width: 480px) {
     .mat-expansion-panel-content {
-      overflow: scroll !important;
-      margin-left: 10px;
-
+      overflow:hidden;
+      max-height: unset !important;
     }
   }
-
 }
 
+::ng-deep {
+  @media (max-width: 2560px) {
+    .mat-expansion-panel-content {
+      max-height: 35vh;
+    }
+  }
+}
 .book_appointment_parts {
   width: 100%;
 }
@@ -484,9 +447,20 @@ mat-expansion-panel-body{
 }
 
 ::ng-deep {
-    .mat-expansion-panel-content {
-      overflow-y: scroll !important;
-      height: 45vh;
-    }
+  .mat-expansion-panel-content {
+    overflow-y: scroll !important;
+    height: auto;
+  }
 
+}
+
+.time {
+  color: #b5651d;
+  font-size: medium;
+}
+
+.count {
+  text-align: center;
+    display: block;
+    padding: 2px;
 }
