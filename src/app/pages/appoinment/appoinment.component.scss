@@ -464,3 +464,8 @@ mat-expansion-panel-body{
     display: block;
     padding: 2px;
 }
+
+.disabled-date {
+  background-color: rgba(255, 0, 0, 0.3); /* Highlight disabled dates */
+  pointer-events: none; /* Prevent clicking */
+}

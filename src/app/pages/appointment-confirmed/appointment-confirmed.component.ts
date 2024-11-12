@@ -77,17 +77,19 @@ this.getAppointment();
   share() {
     Swal.fire({
       title: "Share",
-      html: ` <a href='https://wa.me/+91${
-        this.booking_details.bookedPhoneNo
-      }?text=${encodeURIComponent(
-        this.whatsapp_message_1 + this.whatsapp_message_2
-      )}'><i class="fa-brands fa-whatsapp" style='font-size:80px;color:green;padding:8px;'></i></a> `,
-
-      // showCancelButton: true,
-      // confirmButtonText: 'Confirm',
-      // cancelButtonText: 'Cancel',
+      html: `
+        <a href="https://wa.me/+91${this.booking_details.bookedPhoneNo}?text=${encodeURIComponent(this.whatsapp_message_1 + this.whatsapp_message_2)}" target="_blank">
+          <i class="fa-brands fa-whatsapp" style="font-size:80px;color:green;padding:8px;"></i>
+        </a>
+        <p>Click the WhatsApp icon to share!</p>
+      `,
+      showCloseButton: true,
+      showConfirmButton: false,
+      width: 'auto',
+      padding: '20px',
     });
   }
+  
 
 
   captureEntirePage() {
